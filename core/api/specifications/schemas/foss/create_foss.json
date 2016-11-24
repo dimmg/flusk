@@ -1,0 +1,21 @@
+{
+  "title": "Create FOSS",
+  "description": "Create a FOSS object",
+  "type":"object",
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "required": [
+    "name",
+    "email"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "minLength": 3
+    }
+  }
+}

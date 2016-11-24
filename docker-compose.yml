@@ -1,0 +1,37 @@
+api:
+  restart: always
+  build: ./core
+  expose:
+    - "5000"
+  volumes:
+    - .:/usr/src/app
+  links:
+    - postgres:postgres
+  env_file: ./core/.env
+  command:
+    tail -f /dev/null
+
+nginx:
+  restart: always
+  build: ./nginx
+  ports:
+    - "80:80"
+  volumes_from:
+    - api
+  links:
+    - api:api
+
+data:
+  restart: "no"
+  image: postgres:latest
+  volumes:
+    - /var/lib/postgresql
+  command: "true"
+
+postgres:
+  restart: always
+  image: postgres:latest
+  volumes_from:
+    - data
+  ports:
+    - "5432:5432"
