@@ -1,5 +1,7 @@
-include ./core/.env
-export $(shell sed 's/=.*//' ./core/.env)
+ENV_FILE = $(shell pwd)$(shell echo '/core/.env')
+
+include $(ENV_FILE)
+export $(shell sed 's/=.*//' `pwd`/core/.env)
 
 _DEVELOPMENT_DATABASE_URI=$(DEVELOPMENT_DATABASE_URI)
 _TEST_DATABASE_URI=$(TEST_DATABASE_URI)
@@ -34,7 +36,7 @@ run-server:
 		python ./core/run.py; \
 	)
 
-run-tests:
+run-tests: clear
 	@(\
 		export SQLALCHEMY_DATABASE_URI=$(_TEST_DATABASE_URI); \
 		pytest -s; \
@@ -54,5 +56,4 @@ help:
 	@echo '	Run tests'
 	@echo 'clear':
 	@echo '	Remove *.pyc files, __pycache__ and .cache folders'
-
 
