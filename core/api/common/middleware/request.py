@@ -8,6 +8,12 @@ from ..exceptions import InvalidContentType, InvalidPermissions
 
 
 def ensure_content_type():
+    """
+    Ensures that the Content-Type for all requests
+    is `application-json`, otherwise appropriate error
+    is raised.
+    :raises: InvalidContentType if Content-Type is not `application-json`
+    """
     content_type = request.headers.get('Content-type')
     if not content_type == 'application/json':
         raise InvalidContentType(
@@ -34,6 +40,11 @@ ALLOWED_HEADERS = 'Authorization, DNT, X-CustomHeader, Keep-Alive, User-Agent, '
 
 
 def enable_cors(response):
+    """
+    Enable Cross-origin resource sharing.
+    These headers are needed for the clients that
+    will consume the API via AJAX requests.
+    """
     if request.method == OPTIONS_METHOD:
         response = current_app.make_default_options_response()
     response.headers[ACL_ORIGIN] = ALLOWED_ORIGINS
@@ -44,6 +55,11 @@ def enable_cors(response):
 
 
 def commit_session(response):
+    """
+    Try to commit the db session in the case
+    of a successful request with status_code
+    under 400.
+    """
     if response.status_code >= 400:
         return response
     try:
@@ -54,4 +70,8 @@ def commit_session(response):
 
 
 def shutdown_session(exception=None):
+    """
+    Remove the db session and detach from the
+    database driver after application shutdown.
+    """
     db_session.remove()

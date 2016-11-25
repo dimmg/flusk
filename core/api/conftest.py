@@ -1,3 +1,5 @@
+import os
+
 import pytest
 
 from api import create_app
@@ -5,12 +7,17 @@ from api.common.database import db_session, init_db, drop_db
 
 HEADERS = {
     'content-type': 'application/json',
-    '_secure_key': '0a3de3a519d423c3e12b6a9bfe964c7deaa94d6553e9f50b9a6e3e26e14f147b'
+    '_secure_key': os.environ.get('SECURE_API_KEY')
 }
 
 
 @pytest.fixture(scope='session')
 def app(request):
+    """
+    Create new application.
+    Establish a context so all application parts
+    are properly functioning.
+    """
     app = create_app()
 
     ctx = app.app_context()
@@ -26,6 +33,9 @@ def app(request):
 
 @pytest.fixture(scope='session')
 def test_client(app, request):
+    """
+    Init flask's test client.
+    """
     client = app.test_client()
     client.__enter__()
 
@@ -60,6 +70,10 @@ def custom_headers():
 
 @pytest.fixture(scope="session", autouse=True)
 def database_management(request):
+    """
+    Create database before running the first test.
+    Drop the database after running the last test.
+    """
     init_db()
 
     def teardown():
