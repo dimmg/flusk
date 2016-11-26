@@ -9,6 +9,7 @@ api:
     - postgres:postgres
   env_file: ./core/.env
   command:
+    # gunicorn -w 1 -b 0.0.0.0:5000 run:wsgi
     tail -f /dev/null
 
 nginx:
