@@ -157,5 +157,37 @@ make dcompose-start
     docker inspect rbms_nginx_1
     ```
 
+#### (+) Migrations
+
+Migrations are done using the `alembic` migration tool.
+
+**Flow**
+
+-- make changes to your models when needed
+-- create a migration
+-- check the migration script and modify it as needed
+-- apply the migration
+
+**Commands**
+
+- create migration
+```
+make db-revision msg=<..message..>
+```
+
+- apply the last migration
+```
+make db-upgrade
+```
+
+- get the raw SQL for the last migration
+```
+make db-upgrade-sql
+```
+
+Note that these are the basic migration commands. To get the most from alembic, use the original `$ alembic` runner.
+
+
+
 
 

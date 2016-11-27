@@ -13,6 +13,19 @@ clear:
 	@find . -name "*.pyc" -prune -exec rm -rf {} +
 	@find . -name .cache -prune -exec rm -rf {} +
 
+db-revision:
+	@(\
+		cd core/migrations && alembic revision --autogenerate -m "$(msg)"; \
+	)
+
+db-upgrade:
+	$(shell cd core/migrations && alembic upgrade head)
+
+db-upgrade-sql:
+	@(\
+		cd core/migrations && alembic upgrade head --sql; \
+	)
+
 dcompose-start:
 	@docker-compose stop;
 	@docker-compose build;
