@@ -157,18 +157,18 @@ make dcompose-start
     docker inspect rbms_nginx_1
     ```
 
-#### (+) Migrations
+#### Migrations
 
 Migrations are done using the `alembic` migration tool.
 
-**Flow**
+##### Flow
 
--- make changes to your models when needed
--- create a migration
--- check the migration script and modify it as needed
--- apply the migration
+1. make changes to your models when needed
+2. create a migration
+3. check the migration script and modify it as needed
+4. apply the migration
 
-**Commands**
+##### Commands
 
 - create migration
 ```
