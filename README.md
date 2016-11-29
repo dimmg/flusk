@@ -126,7 +126,7 @@ make dcompose-start
     By having a running server, execute
 
     ```
-    docker inspect rbms_nginx_1
+    docker inspect flusk_nginx_1
     ```
 
     where `IPAddress` it is the address of the running application.
@@ -154,7 +154,7 @@ make dcompose-start
     To get the address of the running web server container run
 
     ```
-    docker inspect rbms_nginx_1
+    docker inspect flusk_nginx_1
     ```
 
 #### Migrations
