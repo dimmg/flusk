@@ -1,6 +1,6 @@
 alembic==0.8.8
 click==6.6
-Flask==0.11
+Flask==1.0.2
 gunicorn==19.6.0
 itsdangerous==0.24
 Jinja2==2.8
